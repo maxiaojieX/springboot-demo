@@ -103,6 +103,13 @@
             <artifactId>spring-boot-starter-aop</artifactId>
             <version>1.5.10.RELEASE</version>
         </dependency>
+        <!--redis-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <version>1.5.7.RELEASE</version>
+        </dependency>
+
     </dependencies>
 
 

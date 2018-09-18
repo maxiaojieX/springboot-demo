@@ -1,8 +1,5 @@
 package com.danger;
-import com.danger.bean.Danger;
-import com.danger.bean.EventBean;
-import com.danger.bean.MemcachedUtil;
-import com.danger.bean.TimeUtil;
+import com.danger.bean.*;
 import com.danger.dao.DangerDao;
 import com.danger.event.DemoPublisher;
 import okhttp3.FormBody;
@@ -20,6 +17,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -445,4 +444,20 @@ public class StatusTest {
         MemcachedUtil.set("ma",60,"xiaojie");
         System.out.println(MemcachedUtil.get("ma"));
     }
+
+//    @Autowired
+//    private StringRedisTemplate redis;
+
+    @Autowired
+    private RedisUtil redisUtil;
+    @Test
+    public void testRedis() {
+
+//        redisTemplate.opsForValue().set("maxiaojie","tom");
+//        System.out.println(redisTemplate.opsForValue().get("maxiaojie"));
+
+        System.out.println(redisUtil.get("maxiaojie"));
+
+    }
+
 }
