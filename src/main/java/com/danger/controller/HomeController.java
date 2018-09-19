@@ -1,6 +1,7 @@
 package com.danger.controller;
 
 import com.danger.bean.Danger;
+import com.danger.bean.RedisUtil;
 import com.danger.dao.DangerDao;
 import com.danger.dao.MyBatisTest;
 import freemarker.template.utility.StringUtil;
@@ -21,10 +22,18 @@ public class HomeController {
     @Autowired
     private DangerDao dangerDao;
 
+    @Autowired
+    private RedisUtil redisUtil;
+
     @GetMapping("/")
     public String hello() {
-        System.out.println("index");
+        System.out.println(redisUtil.get("maxiaojie"));
         return "index";
+    }
+    @GetMapping("/db")
+    @ResponseBody
+    public String hello2() {
+        return dangerDao.get().getQq();
     }
 
     @RequestMapping("/weibo_oauth")
