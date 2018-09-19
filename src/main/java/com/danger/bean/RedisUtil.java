@@ -7,14 +7,17 @@ import java.util.concurrent.TimeUnit;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 
 /**
  *
- * @author 王赛超
+ * @author Xiaojie.Ma
  * 基于spring和redis的redisTemplate工具类
  * 针对所有的hash 都是以h开头的方法
  * 针对所有的Set 都是以s开头的方法                    不含通用方法
@@ -24,13 +27,37 @@ import org.springframework.util.CollectionUtils;
 public class RedisUtil {
 
 
-    @Autowired
+//    @Autowired
+//    private RedisTemplate redisTemplate;
+//    
     private RedisTemplate redisTemplate;
 
-    public void setRedisTemplate(RedisTemplate<String, Object> redisTemplate) {
+    /**
+     * @param redisTemplate
+     */
+    @Autowired(required = false)
+    public void setRedisTemplate(RedisTemplate redisTemplate) {
+        RedisSerializer stringSerializer = new StringRedisSerializer();
+        redisTemplate.setKeySerializer(stringSerializer);
+        redisTemplate.setValueSerializer(stringSerializer);
+        redisTemplate.setHashKeySerializer(stringSerializer);
+        redisTemplate.setHashValueSerializer(stringSerializer);
         this.redisTemplate = redisTemplate;
     }
+
+
     //=============================common============================
+
+    /**
+     * 切库
+     * @param index
+     */
+    public void setDataBase(Integer index){
+        JedisConnectionFactory jedisConnectionFactory = (JedisConnectionFactory) redisTemplate.getConnectionFactory();
+        jedisConnectionFactory.setDatabase(index);
+        this.redisTemplate.setConnectionFactory(jedisConnectionFactory);
+    }
+
     /**
      * 指定缓存失效时间
      * @param key 键

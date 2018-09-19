@@ -1,6 +1,7 @@
 package com.danger;
 import com.danger.bean.*;
 import com.danger.dao.DangerDao;
+import com.danger.dao.MyBatisTest;
 import com.danger.event.DemoPublisher;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -17,6 +18,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpEntity;
@@ -450,13 +452,37 @@ public class StatusTest {
 
     @Autowired
     private RedisUtil redisUtil;
+    @Autowired
+    private MyBatisTest myBatisTest;
+    @Autowired
+    private RedisTemplate redisTemplate;
     @Test
     public void testRedis() {
 
 //        redisTemplate.opsForValue().set("maxiaojie","tom");
 //        System.out.println(redisTemplate.opsForValue().get("maxiaojie"));
 
-        System.out.println(redisUtil.get("maxiaojie"));
+//        System.out.println(redisUtil.get("maxiaojie"));
+//        myBatisTest.insert();
+
+//        Map map = new HashMap();
+//        map.put("ma","xiaojie");
+//        redisUtil.set("key",map);
+//        Map map = (Map) redisUtil.get("key");
+//        System.out.println(map);
+//        System.out.println(map.get("ma"));
+//          Map map = new HashMap();
+//          map.put("ma","xiaojie");
+//
+//          redisUtil.hmset("key2",map);
+//          Map map2 = redisUtil.hmget("key");
+//        System.out.println(map2.get("ma"));
+        redisUtil.setDataBase(1);
+        System.out.println(redisUtil.get("aa"));
+
+//        redisUtil.set("jie","ge");
+//        System.out.println(redisUtil.get("jie"));
+
 
     }
 

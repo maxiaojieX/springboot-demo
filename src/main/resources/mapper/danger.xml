@@ -9,4 +9,10 @@
         where id = #{id}
     </select>
 
+    <insert id="insert">
+        INSERT INTO `qq`.`danger` ( `qq`, `password`, `other`) VALUES ('12', '124', NULL);
+    </insert>
+    <insert id="insert2">
+        INSERT INTO `qq`.`danger` ( `qq`, `password`, `other`) VALUES ('12', '666', NULL);
+    </insert>
 </mapper>
