@@ -477,7 +477,7 @@ public class StatusTest {
 //          redisUtil.hmset("key2",map);
 //          Map map2 = redisUtil.hmget("key");
 //        System.out.println(map2.get("ma"));
-        redisUtil.setDataBase(1);
+        redisUtil.setDataBase(0);
         System.out.println(redisUtil.get("aa"));
 
 //        redisUtil.set("jie","ge");

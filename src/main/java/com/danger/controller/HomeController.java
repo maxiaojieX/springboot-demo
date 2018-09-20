@@ -4,9 +4,11 @@ import com.danger.bean.Danger;
 import com.danger.bean.RedisUtil;
 import com.danger.dao.DangerDao;
 import com.danger.dao.MyBatisTest;
+import com.danger.kafka.sender.KafkaSender;
 import freemarker.template.utility.StringUtil;
 import org.apache.tomcat.util.codec.binary.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,12 +24,23 @@ public class HomeController {
     @Autowired
     private DangerDao dangerDao;
 
+//    @Autowired
+//    private KafkaSender kafkaSender;
+
+    @Autowired
+    private KafkaTemplate kafkaTemplate;
     @Autowired
     private RedisUtil redisUtil;
 
     @GetMapping("/")
     public String hello() {
-        System.out.println(redisUtil.get("maxiaojie"));
+        try {
+            kafkaTemplate.send("mytest-topic", "key", "haha");
+            System.out.println("send ok");
+        } catch (Exception e) {
+            System.out.println("send error");
+        }
+        System.out.println("send ok");
         return "index";
     }
     @GetMapping("/db")
